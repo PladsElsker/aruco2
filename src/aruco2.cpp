@@ -879,7 +879,9 @@ std::vector<std::vector<cv::Point>> MarkerDetector::visitedAwareTracingContour(c
         for (int c = 1; c < cols - 1;  ) {
             ////findStartContourPoint
             {
-#if (CV_SIMD || CV_SIMD_SCALABLE)
+#if (CV_VERSION_MAJOR > 4 || \
+     (CV_VERSION_MAJOR == 4 && CV_VERSION_MINOR >= 7)) && \
+    (CV_SIMD || CV_SIMD_SCALABLE)
                 cv::v_uint8 v_zero = cv::vx_setzero_u8();
                 for (; c <= cols - cv::VTraits<cv::v_uint8>::vlanes(); c+= cv::VTraits<cv::v_uint8>::vlanes())
                 {
@@ -929,7 +931,9 @@ std::vector<std::vector<cv::Point>> MarkerDetector::visitedAwareTracingContour(c
             ////findEndContourPoint
             if ( row_ptr[c]){
                 {
-#if (CV_SIMD || CV_SIMD_SCALABLE)
+#if (CV_VERSION_MAJOR > 4 || \
+     (CV_VERSION_MAJOR == 4 && CV_VERSION_MINOR >= 7)) && \
+    (CV_SIMD || CV_SIMD_SCALABLE)
 
                     cv::v_uint8 v_zero = cv::vx_setzero_u8();
                     for (; c <=  cols - cv::VTraits<cv::v_uint8>::vlanes(); c += cv::VTraits<cv::v_uint8>::vlanes())
