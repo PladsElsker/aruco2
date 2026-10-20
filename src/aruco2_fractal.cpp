@@ -109,7 +109,8 @@ struct Homographer{
 
 /* KeyPoints Filter. Delete kpoints with low response and duplicated. */
 void kfilter(std::vector<cv::KeyPoint> &kpoints)
-{
+{   
+    if(kpoints.empty()) return;
     float minResp = kpoints[0].response;
     float maxResp = kpoints[0].response;
     for (auto &p:kpoints){
